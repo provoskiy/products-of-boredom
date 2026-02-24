@@ -23,7 +23,7 @@ mpDraw = mp.solutions.drawing_utils
 def bentFingers(landmarks):
     isBent = []
 
-    # PIP, TIP, MCP
+    # PIP, TIP, MCP | THUMB, INDEX, MIDDLE, RING, PINKY
     for i, j, k in zip([3, 6, 10, 14, 18], [4, 8, 12, 16, 20], [2, 5, 9, 13, 17]):
         # X, Y, Z
         vA = [landmarks[k][0] - landmarks[i][0], landmarks[k][1] - landmarks[i][1], landmarks[k][2] - landmarks[i][2]]
@@ -43,11 +43,13 @@ def bentFingers(landmarks):
         # compute cosine
         cos0 = dotAB / (magnitudeA * magnitudeB)
 
-        # the finger is bent if cos0 is greater than 0
-        if cos0 > 0:
+        # the finger is bent if cos0 is greater than -0.2
+        if cos0 > -0.2:
             isBent.append(True)
         else:
             isBent.append(False)
+        
+    #print(isBent)
     
     return isBent
 
@@ -62,6 +64,10 @@ def isThumbsDown(landmarks):
 def isMiddleFinger(landmarks):
     bent = bentFingers(landmarks)
     return bent[1:] == [True, False, True, True]
+
+def isPeace(landmarks):
+    bent = bentFingers(landmarks)
+    return bent == [False, False, False, True, True]
 
 # main for webcam, landmarks etc
 try:
@@ -91,6 +97,8 @@ try:
                         gesture = "THUMBS DOWN"
                     elif isMiddleFinger(landmarks):
                         gesture = "FUCK YOU"
+                    elif isPeace(landmarks):
+                        gesture = "PEACE"
                     
                     # check to not flood arduino
                     if gesture == current:
