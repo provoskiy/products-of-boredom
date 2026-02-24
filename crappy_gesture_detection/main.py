@@ -25,7 +25,7 @@ def bentFingers(landmarks):
 
     # PIP, TIP, MCP
     for i, j, k in zip([3, 6, 10, 14, 18], [4, 8, 12, 16, 20], [2, 5, 9, 13, 17]):
-        # X, Y
+        # X, Y, Z
         vA = [landmarks[k][0] - landmarks[i][0], landmarks[k][1] - landmarks[i][1], landmarks[k][2] - landmarks[i][2]]
         vB = [landmarks[j][0] - landmarks[i][0], landmarks[j][1] - landmarks[i][1], landmarks[j][2] - landmarks[i][2]]
             
