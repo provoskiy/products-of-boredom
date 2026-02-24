@@ -1,7 +1,5 @@
 # MEDIAPIPE VERSION 0.10.21
 # ONLY 1 HAND (too fucking lazy to make it work for 2)
-# this code will only work with something to process the serial communication 
-# to work without remove all serial references
 
 import cv2
 import mediapipe as mp
@@ -45,7 +43,7 @@ def bentFingers(landmarks):
         # compute cosine
         cos0 = dotAB / (magnitudeA * magnitudeB)
 
-        # the finger is bent if cos0 is greater than -0.2
+        # the finger is bent if cos0 is greater than 0
         if cos0 > 0:
             isBent.append(True)
         else:
